@@ -29,6 +29,7 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'ransack'
 gem 'formtastic'
 gem 'devise'
+gem 'slim'
 gem 'rspec'
 
 # Use ActiveModel has_secure_password
