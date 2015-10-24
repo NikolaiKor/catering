@@ -1,10 +1,18 @@
 ActiveAdmin.register Dish do
+  config.sort_order = "categories.sort_order_asc"
+
+  controller do
+    def scoped_collection
+      super.includes :category
+    end
+  end
+
   permit_params :title, :price, :description, :category_id
 
   index do
     selectable_column
     column :title
-    column(:category, :sortable => :sort_order) {|dish| link_to "#{dish.category.title} ", admin_category_path(dish.category)}
+    column(:category, :sortable => 'categories.sort_order') {|dish| link_to "#{dish.category.title} ", admin_category_path(dish.category)}
     column :price
     column :updated_at
     actions
