@@ -1,10 +1,11 @@
 ActiveAdmin.register Category do
-  permit_params :title
+  permit_params :title, :sort_order
 
   index do
     selectable_column
     column :title
     column :dishes_count
+    column :sort_order
     column :updated_at
     actions
   end
@@ -13,26 +14,12 @@ ActiveAdmin.register Category do
   filter :dishes_count
   filter :updated_at
 
-  index do
-    selectable_column
-    id_column
-    column :title
 
-    column :updated_at
-    actions
+  form do |f|
+    f.inputs "Category details" do
+      f.input :title
+      f.input :sort_order
+    end
+    f.actions
   end
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-# permit_params :list, :of, :attributes, :on, :model
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if resource.something?
-#   permitted
-# end
-
-
 end

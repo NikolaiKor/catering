@@ -1,4 +1,6 @@
-class Dish < ActiveRecord::Base
+class Dish < Meal
+  self.table_name = 'dishes'
+
   after_create :inc_dishes_count
   after_destroy :dec_dishes_count
   after_update :check_category

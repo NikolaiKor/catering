@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151021213648) do
+ActiveRecord::Schema.define(version: 20151023214215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,7 +63,28 @@ ActiveRecord::Schema.define(version: 20151021213648) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.integer  "dishes_count", default: 0
+    t.integer  "sort_order"
   end
+
+  create_table "daily_menus", force: :cascade do |t|
+    t.integer  "day_number"
+    t.float    "max_total"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "dish_ids",   default: [],              array: true
+  end
+
+  create_table "daily_rations", force: :cascade do |t|
+    t.float   "price"
+    t.integer "quantity"
+    t.integer "person_id"
+    t.integer "daily_menu_id"
+    t.integer "sprint_id"
+    t.integer "meal_id"
+    t.string  "meal_type"
+  end
+
+  add_index "daily_rations", ["meal_type", "meal_id"], name: "index_daily_rations_on_meal_type_and_meal_id", using: :btree
 
   create_table "dishes", force: :cascade do |t|
     t.string   "title"
@@ -72,6 +93,15 @@ ActiveRecord::Schema.define(version: 20151021213648) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "category_id"
+  end
+
+  create_table "sprints", force: :cascade do |t|
+    t.string   "title"
+    t.date     "started_at"
+    t.date     "finished_at"
+    t.integer  "state"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
 end
