@@ -1,6 +1,11 @@
 class Dish < Meal
   self.table_name = 'dishes'
 
+
+  Category.all.each do |category|
+    scope category.title,-> {where(category: category)}
+  end
+
   after_create :inc_dishes_count
   after_destroy :dec_dishes_count
   after_update :check_category

@@ -1,4 +1,6 @@
 ActiveAdmin.register Category do
+  config.sort_order = "sort_order_asc"
+
   permit_params :title, :sort_order
 
   index do

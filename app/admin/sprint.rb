@@ -1,12 +1,20 @@
 ActiveAdmin.register Sprint do
   permit_params :title, :started_at, :finished_at, :state
 
+  scope :all, :default => true
+  scope :pending
+  scope :started
+  scope :finished
+
   index do
     selectable_column
     column :title
     column :started_at
     column :finished_at
-    column :state
+    column :state do |sprint|
+      _status = sprint.status
+      status_tag(_status[0], class:_status[1])
+    end
     actions
   end
 

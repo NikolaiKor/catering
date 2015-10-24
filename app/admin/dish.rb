@@ -1,6 +1,13 @@
 ActiveAdmin.register Dish do
   config.sort_order = "categories.sort_order_asc"
 
+  scope :all, :default => true
+  Category.all.each do |category|
+    scope category.title
+  end
+
+  # scope :azaza  , -> {where(category: 1)}
+
   controller do
     def scoped_collection
       super.includes :category
