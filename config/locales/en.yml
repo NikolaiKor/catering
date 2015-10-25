@@ -9,3 +9,5 @@ en:
     form_title: Business lunch details
   sprint:
     form_title: Business lunch details
+  user:
+      form_title: User details
