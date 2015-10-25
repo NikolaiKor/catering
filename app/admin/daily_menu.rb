@@ -21,7 +21,7 @@ ActiveAdmin.register DailyMenu do
 
 
   form do |f|
-    f.inputs "Dish details" do
+    f.inputs I18n.t('daily_menu.form_title') do
       f.input :day_number
       f.input :max_total
       f.input :dish_ids

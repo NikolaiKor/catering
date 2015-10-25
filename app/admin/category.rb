@@ -18,7 +18,7 @@ ActiveAdmin.register Category do
 
 
   form do |f|
-    f.inputs "Category details" do
+    f.inputs I18n.t('category.form_title') do
       f.input :title
       f.input :sort_order
     end

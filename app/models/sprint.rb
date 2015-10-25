@@ -13,6 +13,7 @@ class Sprint < ActiveRecord::Base
       when 0 then ['Pending','orange']
       when 1 then ['Active','yes']
       when 2 then ['Stopped','gray']
+      else ['ERROR TAG','red']
     end
   end
 end

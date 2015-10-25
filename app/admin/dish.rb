@@ -6,7 +6,6 @@ ActiveAdmin.register Dish do
     scope category.title
   end
 
-  # scope :azaza  , -> {where(category: 1)}
 
   controller do
     def scoped_collection
@@ -31,7 +30,7 @@ ActiveAdmin.register Dish do
   filter :updated_at
 
   form do |f|
-    f.inputs "Dish details" do
+    f.inputs I18n.t('dish.form_title') do
       f.input :title
       f.input :price
       f.input :description

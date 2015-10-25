@@ -24,7 +24,7 @@ ActiveAdmin.register Sprint do
   filter :state
 
   form do |f|
-    f.inputs "Sprint details" do
+    f.inputs I18n.t('sprint.form_title') do
       f.input :title
       f.input :started_at, as: :date_picker
       f.input :finished_at, as: :date_picker

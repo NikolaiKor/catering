@@ -16,7 +16,7 @@ ActiveAdmin.register BusinessLunch do
   filter :dish_ids
 
   form do |f|
-    f.inputs "Bisuness lunch details" do
+    f.inputs I18n.t('business_lunch.form_title') do
       f.input :title
       f.input :price
       f.input :dish_ids
