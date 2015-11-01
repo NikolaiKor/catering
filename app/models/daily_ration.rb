@@ -1,6 +1,7 @@
 class DailyRation < ActiveRecord::Base
   belongs_to :sprint
   belongs_to :daily_menu
+  belongs_to :user, foreign_key: :person_id
   belongs_to :meal, polymorphic: true
 
   validates :price, :presence => true
