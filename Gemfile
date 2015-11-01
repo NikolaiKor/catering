@@ -30,7 +30,11 @@ gem 'ransack'
 gem 'formtastic'
 gem 'devise'
 gem 'slim'
-gem 'rspec'
+gem 'grape'
+gem 'grape_logging'
+gem 'grape-swagger'
+gem 'grape-swagger-ui'
+gem 'swagger-ui_rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -44,6 +48,7 @@ gem 'rspec'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'rspec'
 end
 
 group :development do

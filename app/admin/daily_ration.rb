@@ -7,7 +7,10 @@ ActiveAdmin.register DailyRation do
     selectable_column
     column :price
     column :quantity
-    column :person_id
+    column(:person) do |ration|
+      _person = ration.user
+      link_to("##{_person.id} #{_person.name}", admin_user_path(_person))
+    end
     column :sprint do |ration|
       _sprint = ration.sprint
       link_to(_sprint.title.to_s + ' ' +
