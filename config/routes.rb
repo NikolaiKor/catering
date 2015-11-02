@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
   mount API::Engine => '/api'
 
-  resources :user
-
   devise_for :users
   devise_for :admins, ActiveAdmin::Devise.config
 

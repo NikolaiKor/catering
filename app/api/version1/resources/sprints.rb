@@ -5,6 +5,10 @@ module API
       version 'v1', using: :path
 
       resource :sprints do
+        before do
+          user_by_token!
+        end
+
         desc "Returns sprints with state 'started' and 'finished'"
         get '/' do
           Sprint.where('state >0').order(:state)
@@ -15,7 +19,7 @@ module API
           DailyRation.where(:sprint_id => @params[:sprint_id]).order(:daily_menu_id)
         end
 
-        desc "Create new daily ration for sprint by sprint_id"
+        desc 'Create new daily ration for sprint by sprint_id'
         params do
           requires :sprint_id, type: Integer
           requires :meal_id, type: Integer

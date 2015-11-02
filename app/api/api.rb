@@ -25,7 +25,7 @@ module API
     end
 
     rescue_from UnauthorizedError do |e|
-      Rack::Response.new({errors: 'Invalid API public token', message: 'Unauthorized'}.to_json, 401, {'Content-Type' => 'application/json'})
+      Rack::Response.new({errors: e.message, message: 'Unauthorized'}.to_json, 401, {'Content-Type' => 'application/json'})
     end
 
     use API::Logger
