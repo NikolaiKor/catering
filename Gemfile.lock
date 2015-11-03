@@ -115,8 +115,6 @@ GEM
     grape-swagger (0.10.2)
       grape (>= 0.8.0)
       grape-entity
-    grape-swagger-ui (0.0.9)
-      railties (>= 3.1)
     grape_logging (1.1.2)
       grape
     has_scope (0.6.0)
@@ -232,7 +230,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    swagger-ui_rails (0.1.7)
     temple (0.7.6)
     thin (1.6.4)
       daemons (~> 1.0, >= 1.0.9)
@@ -274,7 +271,6 @@ DEPENDENCIES
   formtastic
   grape
   grape-swagger
-  grape-swagger-ui
   grape_logging
   jbuilder (~> 2.0)
   jquery-rails
@@ -286,7 +282,6 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   slim
   spring
-  swagger-ui_rails
   thin
   turbolinks
   uglifier (>= 1.3.0)
