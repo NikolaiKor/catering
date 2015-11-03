@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   devise_for :users
   devise_for :admins, ActiveAdmin::Devise.config
 
-  ActiveAdmin.routes(self)
+  ActiveAdmin.routes(self) unless ARGV.grep(/assets:precompile/).any?
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
