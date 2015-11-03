@@ -81,6 +81,7 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
   #database: catering_production
   #username: catering
   #password: <%= ENV['CATERING_DATABASE_PASSWORD'] %>
