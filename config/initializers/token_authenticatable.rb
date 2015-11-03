@@ -1,15 +1,14 @@
 module TokenAuthenticatable
   class TokenStrategy < Devise::Strategies::Authenticatable
     def valid?
-      request.headers['X-Auth-Token'].present?
+      !request.headers['X-Auth-Token'].nil?
     end
 
     def authenticate!
-      #_klass = mapping.to
-      if request.headers['X-Auth-Token'].present?
-        _user = mapping.to.find_by_auth_token(request.headers['X-Auth-Token'])
-        _user.nil? ? fail!(_user) : success!(_user)
-      end
+      _token = request.headers['X-Auth-Token']
+      _user = mapping.to.find_auth_token(_token)
+      raise UnauthorizedError, 'Invalid auth token' if _user.nil? || _user.auth_token != _token
+      success! _user
     end
   end
 end

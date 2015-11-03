@@ -1,6 +1,8 @@
 module API
   module Version1
     module Helpers
+      include Devise::Controllers::SignInOut
+
       def warden
         @warden ||= request.env["warden"]
       end
@@ -14,19 +16,14 @@ module API
       end
 
       def user_by_token!
-        env['devise.skip_trackable'] = true
-        warden.authenticate!(:token_authenticatable, :scope => :user)
+        _user = User.find_by_auth_token(request.headers['X-Auth-Token']) if request.headers['X-Auth-Token'].present?
+        raise UnauthorizedError, 'Invalid API public token' if _user.nil?
+        _user
       end
 
       def user_by_email!
-        warden.authenticate!(:database_authenticatable, :scope => :user)
-        auth_token = nil
-        if warden.authenticated?(:user)
-          auth_token = SecureRandom.uuid.gsub(/\-/, '')
-          current_user.auth_token = auth_token
-          @current_user.save
-        end
-        auth_token
+        warden.authenticate!(:email_authenticatable, :scope => :user)
+        current_user.auth_token
       end
 
       def client_ip
@@ -41,6 +38,11 @@ module API
                    BusinessLunch.find(id)
                end
         meal.price * quantity
+      end
+
+      def user_sign_out(token)
+        _user = user_by_email!
+        sign_out(:user)
       end
     end
   end
