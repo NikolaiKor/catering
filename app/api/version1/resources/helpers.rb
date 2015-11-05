@@ -18,7 +18,7 @@ module API
       def user_by_token!
         _user = User.find_by_auth_token(request.headers['X-Auth-Token']) if request.headers['X-Auth-Token'].present?
         raise UnauthorizedError, 'Invalid API public token' if _user.nil?
-        _user
+        @current_user ||= _user
       end
 
       def user_by_email!

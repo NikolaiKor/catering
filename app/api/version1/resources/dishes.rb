@@ -9,15 +9,28 @@ module API
           user_by_token!
         end
 
-        desc 'Dishes by id array'
+        desc 'Dishes by id' do
+          headers 'X-Auth-Token' => {
+              description: 'Authentification token',
+              required: true
+          }
+        end
+        params do
+          requires :group, type: Integer, desc: 'group id'
+        end
         get '/group' do
-          _group = Array.wrap(@params[:group].keys).map(&:to_i)
-          Dish.where('id = ANY(ARRAY[?])', _group)
+          _group = @params[:group].to_i
+          Dish.where('category_id = ?', _group)
         end
 
-        desc 'Dish by id'
+        desc 'Dish by id' do
+          headers 'X-Auth-Token' => {
+              description: 'Authentification token',
+              required: true
+          }
+        end
         get '/:id' do
-          Dish.find(@params[:id])
+          Dish.find(@params[:id]).to_json
         end
       end
     end
