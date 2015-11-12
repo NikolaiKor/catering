@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :email_authenticatable, :registerable,
-         :recoverable, :trackable, :validatable, :token_authenticatable
+         :recoverable, :validatable, :token_authenticatable
 
   def password
     @password ||= Password.new(self.encrypted_password)

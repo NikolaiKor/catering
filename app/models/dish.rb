@@ -11,20 +11,21 @@ class Dish < Meal
   after_update :check_category
 
   belongs_to :category
+  belongs_to :daily_menu
 
   validates :title, presence: true, length: {maximum: 45}
   validates :price, presence: true
   validates :category_id, presence: true
 
   private
-  def inc_dishes_count(chaiging_category = category)
-    chaiging_category.dishes_count +=1
-    chaiging_category.save
+  def inc_dishes_count(changing_category = category)
+    changing_category.dishes_count +=1
+    changing_category.save
   end
 
-  def dec_dishes_count(chaiging_category = category)
-    chaiging_category.dishes_count -=1
-    chaiging_category.save
+  def dec_dishes_count(changing_category = category)
+    changing_category.dishes_count -=1
+    changing_category.save
   end
 
   def check_category

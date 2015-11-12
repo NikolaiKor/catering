@@ -23,6 +23,9 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+# Call 'byebug' anywhere in the code to stop execution and get a debugger console
+gem 'byebug', group: [:development, :test]
+
 gem 'activerecord', '~> 4.2', '>= 4.2.4'
 gem 'thin'
 gem 'activeadmin', github: 'activeadmin'
@@ -33,6 +36,7 @@ gem 'slim'
 gem 'grape'
 gem 'grape_logging'
 gem 'grape-swagger'
+gem 'rack-cors'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
@@ -43,10 +47,12 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
-  gem 'rspec'
+group :test do
+  gem 'rspec-rails'
+  gem 'database_cleaner'
+  gem 'fuubar'
+  gem 'api_matchers'
+  gem 'factory_girl_rails'
 end
 
 group :development do
