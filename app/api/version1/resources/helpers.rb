@@ -4,7 +4,7 @@ module API
       include Devise::Controllers::SignInOut
 
       def warden
-        @warden ||= request.env["warden"]
+        @warden ||= request.env['warden']
       end
 
       def current_user
@@ -15,19 +15,21 @@ module API
         warden.authenticated?(:account)
       end
 
+      #use in all requests except log_out
       def user_by_token!
         _user = User.find_by_auth_token(request.headers['X-Auth-Token']) if request.headers['X-Auth-Token'].present?
         raise UnauthorizedError, 'Invalid API public token' if _user.nil?
-        @current_user ||= _user
+        @current_user = _user
       end
 
       def user_by_email!
+        env['devise.rememberable'] = false
         warden.authenticate!(:email_authenticatable, :scope => :user)
         current_user.auth_token
       end
 
       def client_ip
-        env["action_dispatch.remote_ip"].to_s
+        env['action_dispatch.remote_ip'].to_s
       end
 
       def price(type, id, quantity)
@@ -40,9 +42,9 @@ module API
         meal.price * quantity
       end
 
-      def user_sign_out(token)
-        _user = user_by_email!
-        sign_out(:user)
+      def user_sign_out
+        warden.authenticate!(:token_authenticatable, :scope => :user)
+        sign_out(current_user)
       end
     end
   end

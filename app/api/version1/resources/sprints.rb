@@ -19,7 +19,7 @@ module API
           Sprint.where('state >0').order(:state)
         end
 
-        desc "Returns daily rations sprints" do
+        desc 'Returns daily rations sprints' do
           headers 'X-Auth-Token' => {
               description: 'Authentification token',
               required: true

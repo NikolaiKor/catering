@@ -1,10 +1,10 @@
 require "grape"
 module API
   module Version1
-    class Dishes < ::Grape::API
+    class Meals < ::Grape::API
       version 'v1', using: :path
 
-      resource :dishes do
+      resource :meals do
         before do
           user_by_token!
         end
@@ -20,7 +20,9 @@ module API
         end
         get '/group' do
           _group = @params[:group].to_i
-          Dish.where('category_id = ?', _group)
+          _dish = Dish.where('category_id = ?', _group)
+          _business_lunch = BusinessLunch.where('category_id = ?', _group)
+          {dish: _dish, business_lunch: _business_lunch}
         end
 
         desc 'Dish by id' do
@@ -29,8 +31,11 @@ module API
               required: true
           }
         end
-        get '/:id' do
-          Dish.find(@params[:id]).to_json
+        get '/:type/:id' do
+          case @params[:type].downcase
+            when 'dish' then Dish.find(@params[:id])
+            when 'businesslunch' then BusinessLunch.find(@params[:id])
+          end
         end
       end
     end

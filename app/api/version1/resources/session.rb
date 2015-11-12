@@ -15,7 +15,7 @@ module API
         post '/' do
           _token = user_by_email!
           throw Grape::Exceptions::ValidationErrors if _token.nil?
-          Rack::Response.new({token: _token}.to_json, 200, {'Content-Type' => 'application/json'})
+          {token: _token}
         end
 
         desc 'Sign out ang destroy token' do
@@ -24,8 +24,8 @@ module API
               required: true
           }
         end
-        delete '/sign_out' do
-          Rack::Response.new({logged_out: user_sign_out(@params[:token])}.to_json, 200, {'Content-Type' => 'application/json'})
+        delete '/' do
+          {logged_out: user_sign_out}
         end
       end
     end

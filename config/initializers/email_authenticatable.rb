@@ -22,8 +22,9 @@ module EmailAuthenticatable
 
   Warden::Manager.before_logout do |user, auth, opts|
     unless auth.user(:user).nil?
-      user.auth_token = ''
-      user.save!
+      _user = auth.user(:user)
+      _user.auth_token = ''
+      _user.save!
     end
   end
 end

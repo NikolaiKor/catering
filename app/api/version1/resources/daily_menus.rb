@@ -28,6 +28,17 @@ module API
         get '/:id' do
           DailyMenu.find(@params[:id])
         end
+
+        desc 'Daily menu by id' do
+          headers 'X-Auth-Token' => {
+              description: 'Authentification token',
+              required: true
+          }
+        end
+        get '/:id/dishes' do
+          _menu = DailyMenu.find(@params[:id])
+          Dish.where('id IN(?)', _menu.dish_ids)
+        end
       end
     end
   end
