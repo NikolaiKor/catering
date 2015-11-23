@@ -4,8 +4,9 @@ ActiveAdmin.register User do
   controller do
     def create
       generated_password = Devise.friendly_token.first(8)
-      puts 'password: ' + generated_password
-      _user = User.create!(email: @_params[:user][:email], password: generated_password)
+      # puts 'password: ' + generated_password
+      # File.open('pas', 'w'){ |f| f.write("#{@_params[:user][:email]} #{generated_password}")}
+      _user = User.create!(email: @_params[:user][:email], password: generated_password, name: generated_password)
       redirect_to admin_user_path(_user)
     end
   end
