@@ -16,7 +16,13 @@ module API
           }
         end
         get '/' do
-          Sprint.where('state >0').order(:state)
+          _sprints = Sprint.where('state >0').order(:state)
+          _result = []
+          _sprints.each do |sprint|
+            _result << {id: sprint.id, start: sprint.started_at.strftime('%d.%m.%y'),
+                        finish: sprint.finished_at.strftime('%d.%m.%y')}
+          end
+          _result
         end
 
         desc 'Returns daily rations sprints' do

@@ -16,7 +16,9 @@ module API
           }
         end
         get '/' do
-          DailyMenu.order(:day_number)
+          _a = DailyMenu.order(:day_number)
+          print _a.inspect
+          _a
         end
 
         desc 'Daily menu by id' do

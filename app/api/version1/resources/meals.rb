@@ -9,14 +9,12 @@ module API
           user_by_token!
         end
 
-        desc 'Dishes by id' do
+
+        desc 'Categories list' do
           headers 'X-Auth-Token' => {
               description: 'Authentification token',
               required: true
           }
-        end
-        params do
-          requires :group, type: Integer, desc: 'group id'
         end
         get '/group' do
           _group = @params[:group].to_i
@@ -25,11 +23,31 @@ module API
           {dish: _dish, business_lunch: _business_lunch}
         end
 
-        desc 'Dish by id' do
+        desc 'Dishes by meal type' do
           headers 'X-Auth-Token' => {
               description: 'Authentification token',
               required: true
           }
+        end
+        params do
+          requires :type, type: String, desc: 'meal type'
+        end
+        get '/:type' do
+          case @params[:type].downcase
+            when 'dishes' then Dish.all
+            when 'businesslunches' then BusinessLunch.all
+          end
+        end
+
+        desc 'Dish by type and id' do
+          headers 'X-Auth-Token' => {
+              description: 'Authentification token',
+              required: true
+          }
+        end
+        params do
+          requires :type, type: String, desc: 'meal type'
+          requires :id, type: Integer, desc: 'meal id'
         end
         get '/:type/:id' do
           case @params[:type].downcase

@@ -16,12 +16,12 @@ describe API::Version1::Engine, :type => :request do
     @token = User.where(:email => EMAIL).take.auth_token
   end
   # need test get sprint with state 0
-  describe 'GET /api/v1/sprints' do
-    it 'get sprint by id' do
-      header 'X-Auth-Token', @token
-      get 'api/v1/sprints'
-      expect(last_response.body).to have_node(:title).with('Active Sprint')
-      expect(last_response.body).to have_node(:title).with('Ended sprint')
-    end
-  end
+  # describe 'GET /api/v1/sprints' do
+  #   it 'get sprint by id' do
+  #     header 'X-Auth-Token', @token
+  #     get 'api/v1/sprints'
+  #     expect(last_response.body).to have_node(:title).with('Active Sprint')
+  #     expect(last_response.body).to have_node(:title).with('Ended sprint')
+  #   end
+  # end
 end

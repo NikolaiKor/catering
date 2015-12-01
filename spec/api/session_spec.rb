@@ -8,10 +8,11 @@ describe API::Version1::Engine, :type => :request do
   token=''
   password=''
   EMAIL = 'test@test.com.ua'
+  NAME = 'test_name'
 
   before(:all) do
     generated_password = Devise.friendly_token.first(8)
-    _user = User.create!(email: EMAIL, password: generated_password)
+    _user = User.create!(email: EMAIL, password: generated_password, name: NAME)
     _user.save!
     password = generated_password
   end
@@ -21,7 +22,7 @@ describe API::Version1::Engine, :type => :request do
       post 'api/v1/session', {user: {email: EMAIL, password: password}}
       expect(last_response.status).to create_resource
       expect(last_response.body).to have_node(:token)
-      expect(last_response.body).to have_node(:email).with(EMAIL)
+      expect(last_response.body).to have_node(:user_name).with(NAME)
       token = JSON.parse(last_response.body)['token']
     end
 
